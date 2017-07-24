@@ -3,6 +3,7 @@ import numpy as np
 
 import rospy
 import actionlib
+import pc_pipeline_msgs.msg
 
 
 def ros_mesh_msg_to_daefile(mesh, dae_filepath):
@@ -51,15 +52,15 @@ def complete_scene():
     # create an action server client
     # and wait for the server to come up.
     scene_completion_client = actionlib.SimpleActionClient(
-        "/scene_completion/SceneCompletion",
-        scene_completion.msg.CompleteSceneAction)
+        "/pc_scene_completion/SceneCompletion",
+        pc_pipeline_msgs.msg.CompleteSceneAction)
     rospy.loginfo("waiting for scene_completion server...")
     scene_completion_client.wait_for_server()
     rospy.loginfo("scene_completion server started")
 
     # send an empty goal requesting a completed planning scene
     rospy.loginfo("about to send scene_completion goal")
-    goal = scene_completion.msg.CompleteSceneGoal()
+    goal = pc_pipeline_msgs.msg.CompleteSceneGoal()
     scene_completion_client.send_goal(goal)
 
     rospy.loginfo("waiting for result")
