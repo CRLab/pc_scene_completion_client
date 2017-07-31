@@ -52,7 +52,7 @@ def complete_scene():
     # create an action server client
     # and wait for the server to come up.
     scene_completion_client = actionlib.SimpleActionClient(
-        "/pc_scene_completion/SceneCompletion",
+        "SceneCompletion",
         pc_pipeline_msgs.msg.CompleteSceneAction)
     rospy.loginfo("waiting for scene_completion server...")
     scene_completion_client.wait_for_server()
