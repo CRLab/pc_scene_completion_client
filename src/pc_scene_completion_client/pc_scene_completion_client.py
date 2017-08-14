@@ -48,7 +48,7 @@ def ros_mesh_msg_to_plyfile(mesh_msg, ply_filepath):
     PlyData([vertex_element, face_element], text=True).write(ply_filepath)
 
 
-def complete_scene():
+def complete_scene(object_completion_topic):
     # create an action server client
     # and wait for the server to come up.
     scene_completion_client = actionlib.SimpleActionClient(
@@ -61,6 +61,7 @@ def complete_scene():
     # send an empty goal requesting a completed planning scene
     rospy.loginfo("about to send scene_completion goal")
     goal = pc_pipeline_msgs.msg.CompleteSceneGoal()
+    goal.object_completion_topic = object_completion_topic
     scene_completion_client.send_goal(goal)
 
     rospy.loginfo("waiting for result")
